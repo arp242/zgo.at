@@ -2,7 +2,7 @@
 
 set -euC
 
-for p in log zhttp; do
+for p in zlog zhttp; do
 	mkdir -p "$p"
 
 	cat <<EOF | tee "$p.html" "$p/index.html">/dev/null
