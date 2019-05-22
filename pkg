@@ -10,13 +10,13 @@ for p in log zhttp; do
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="go-import" content="go.at/$p git https://github.com/zgoat/$p.git">
-	<meta name="go-source" content="go.at/$p https://github.com/zgoat/$p https://github.com/zgoat/$p/tree/master/{/dir}/ https://github.com/zgoat/$p/tree/master/{/dir}">
+	<meta name="go-import" content="zgo.at/$p git https://github.com/zgoat/$p.git">
+	<meta name="go-source" content="zgo.at/$p https://github.com/zgoat/$p https://github.com/zgoat/$p/tree/master/{/dir}/ https://github.com/zgoat/$p/tree/master/{/dir}">
 	<meta http-equiv="refresh" content="0; url=https://github.com/zgoat/$p">
 </head>
 <body>
 	<p>
-		This is the <code>go.at/$p</code> Go package.
+		This is the <code>zgo.at/$p</code> Go package.
 		Its homepage is at <a href="https://github.com/zgoat/$p">https://github.com/zgoat/$p</a>.
 	</p>
 </body>
