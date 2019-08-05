@@ -2,25 +2,26 @@
 
 set -euC
 
-for p in zlog zhttp zlog_sentry goatcounter goatletter; do
-	mkdir -p "$p"
-
-	cat <<EOF | tee "$p.html" "$p/index.html">/dev/null
+for root in zlog zhttp zlog_sentry goatcounter goatletter; do
+	for p in $(cd "$HOME/code/$root" && go list ./...); do
+		p=${p##zgo.at/}
+		mkdir -p "$p"
+		cat <<EOF | tee "$p.html" "$p/index.html">/dev/null
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="go-import" content="zgo.at/$p git https://github.com/zgoat/$p.git">
-	<meta name="go-source" content="zgo.at/$p https://github.com/zgoat/$p https://github.com/zgoat/$p/tree/master/{/dir}/ https://github.com/zgoat/$p/tree/master/{/dir}">
-	<meta http-equiv="refresh" content="0; url=https://github.com/zgoat/$p">
+	<meta name="go-import" content="zgo.at/$p git https://github.com/zgoat/$root.git">
+	<meta name="go-source" content="zgo.at/$root https://github.com/zgoat/$root https://github.com/zgoat/$root/tree/master/{/dir}/ https://github.com/zgoat/$root/tree/master/{/dir}/{file}#L{line}">
+	<meta http-equiv="refresh" content="0; url=https://github.com/zgoat/$root">
 </head>
 <body>
 	<p>
-		This is the <code>zgo.at/$p</code> Go package.
-		Its homepage is at <a href="https://github.com/zgoat/$p">https://github.com/zgoat/$p</a>.
+		This is the <code>zgo.at/$root</code> Go package.
+		Its homepage is at <a href="https://github.com/zgoat/$root">https://github.com/zgoat/$root</a>.
 	</p>
 </body>
 </html>
 EOF
-
+	done
 done
