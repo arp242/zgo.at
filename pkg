@@ -2,7 +2,7 @@
 
 set -euC
 
-for root in zlog zhttp zlog_sentry goatcounter goatletter zpack zdb utils ztest zvalidate zsrv; do
+for root in zlog zhttp zlog_sentry goatcounter goatletter zpack zdb utils ztest zvalidate zsrv zstripe; do
 	for p in $(cd "$HOME/code/$root" && go list ./...); do
 		p=${p##zgo.at/}
 		mkdir -p "$p"
