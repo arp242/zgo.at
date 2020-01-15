@@ -11,7 +11,7 @@ for root in zlog zhttp zlog_sentry goatcounter goatletter zpack zdb utils ztest 
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="go-import" content="zgo.at/$p git https://github.com/zgoat/$root.git">
+	<meta name="go-import" content="zgo.at/$root git https://github.com/zgoat/$root.git">
 	<meta name="go-source" content="zgo.at/$root https://github.com/zgoat/$root https://github.com/zgoat/$root/tree/master/{/dir}/ https://github.com/zgoat/$root/tree/master/{/dir}/{file}#L{line}">
 	<meta http-equiv="refresh" content="0; url=https://github.com/zgoat/$root">
 </head>
