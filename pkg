@@ -3,7 +3,7 @@
 set -euC
 
 index=""
-for root in zlog zhttp zlog_sentry goatcounter goatletter zpack zdb utils ztest zvalidate zsrv zstripe httpbuf json tz; do
+for root in zlog zhttp zlog_sentry goatcounter goatletter zpack zdb utils ztest zvalidate zsrv zstripe httpbuf json tz isbot; do
 	for p in $(cd "$HOME/code/$root" && go list ./...); do
 		p=${p##zgo.at/}
 		index="$index\n<li><a href='https://pkg.go.dev/zgo.at/$root'>zgo.at/$root</a></li>"
