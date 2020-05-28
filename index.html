@@ -3,43 +3,147 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>zGo.at</title>
+	<title>zGoat</title>
+	<link rel="stylesheet" href="base.css">
+
+	<style>
+		/* Override some hello css */
+		code  { background: transparent; padding: 0; }
+		h2    { text-align: center; border-bottom: 0; }
+		.page { max-width: 60em; padding: 1rem 1rem; } 
+
+		/* Intro */
+		.intro-links { display: flex; justify-content: space-around; }
+
+		/* Section layout */
+		section      { display: flex; flex-wrap: wrap; justify-content: space-around; }
+		section h2   { width: 100%; }
+		section div  { display: flex; flex-wrap: wrap; align-content: flex-start; width: 18.5rem; min-height: 2rem;
+                       margin-bottom: 1em; padding: .4em .8em; border: 1px solid #d1d5da; border-radius: 3px; }
+		@media (max-width: 60em) { section div { width: 45%;  } }
+		@media (max-width: 40em) { section div { width: 100%; } }
+
+		/* Section content */
+		section div h3 { flex-grow: 1; font-size: 1em; margin: 0; }
+		section div p  { flex-basis: 100%; margin: 0; }
+	</style>
 </head>
 <body>
-	Go packages on this domain:
-	<ul>
-		<li><a href='https://pkg.go.dev/zgo.at/goatcounter'>zgo.at/goatcounter</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/httpbuf'>zgo.at/httpbuf</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/json'>zgo.at/json</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/utils'>zgo.at/utils</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zdb'>zgo.at/zdb</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zhttp'>zgo.at/zhttp</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zlog'>zgo.at/zlog</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zpack'>zgo.at/zpack</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zsrv'>zgo.at/zsrv</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zstripe'>zgo.at/zstripe</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/ztest'>zgo.at/ztest</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/zvalidate'>zgo.at/zvalidate</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/tz'>zgo.at/tz</a></li>
-		<li><a href='https://pkg.go.dev/zgo.at/isbot'>zgo.at/isbot</a></li>
-	</ul>
+	<h1>zGoat</h1>
 
-	<p>Also see <a href="https://github.com/zgoat">GitHub</a></p>
+	<div class="page">
+		<p>zGoat is the organisation under which I develop GoatCounter and various other related
+		packages. Many of the projects listed here were developed for use in GoatCounter.</p>
 
-	<script>
-		(function() {
-			if (window.location.hostname.indexOf('localhost') > -1) {
-				return;
-			}
+		<p>Everything here is written in Go and is released under the MIT license, with the
+		exception of GoatCounter itself which is EUPL.</p>
 
-			var script = document.createElement('script');
-			window.counter = 'https://zgoat.goatcounter.com/count'
-			script.async = 1;
-			script.src = '//gc.zgo.at/count.js';
-
-			var ins = document.getElementsByTagName('script')[0];
-			ins.parentNode.insertBefore(script, ins)
-		})();
-	</script>
+		<p class="intro-links">
+			<a href="https://github.com/zgoat">GitHub</a>
+			<a href="https://www.goatcounter.com/contribute">Support my work</a>
+			<a href="https://www.arp242.net">arp242.net</a>
+		</p>
+	</div>
+	<hr>
+	<section class="page">
+		<h2>Applications</h2>
+		<div>
+			<h3><a href="https://www.goatcounter.com">GoatCounter</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/goatcounter'>godoc</a></code>
+			<p>Open source and privacy-friendly web analytics.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/httpbuf">httpbuf</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/httpbuf'>godoc</a></code>
+			<p>Buffer HTTP requests when a backend is down.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zsrv">zsrv</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zsrv'>godoc</a></code>
+			<p>Static webserver with all assets compiled in, so you just need to deploy a binary to
+			serve your site.</p>
+		</div>
+	</section>
+	<hr>
+	<section class="page">
+		<h2>Libraries</h2>
+		<div>
+			<h3><a href="https://github.com/zgoat/blackmail">blackmail</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/blackmail'>godoc</a></code>
+			<p>Send emails with a friendly API.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/gadget">gadget</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/gadget'>godoc</a></code>
+			<p>Parse the <code>User-Agent</code> header.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/isbot">isbot</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/isbot'>godoc</a></code>
+			<p>Detect web bots.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zstd">zstd</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zstd'>godoc</a></code>
+			<p>Extensions to the Go stdlib.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zdb">zdb</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zdb'>godoc</a></code>
+			<p>Database helpers built on top of sqlx.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zvalidate">zvalidate</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zvalidate'>godoc</a></code>
+			<p>Validation of parameters; returns parsed values so they can be used.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/ztest">ztest</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/ztest'>godoc</a></code>
+			<p>A few small testing helpers.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/guru">guru</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/guru'>godoc</a></code>
+			<p>Add an error code to errors.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/errors">errors</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/errors'>godoc</a></code>
+			<p>Add errors.Wrap() and a stack trace.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zpack">zpack</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zpack'>godoc</a></code>
+			<p>Pack static files in a binary.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zstripe">zstripe</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zstripe'>godoc</a></code>
+			<p>Stripe API helpers.</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/tz">tz</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/tz'>godoc</a></code>
+			<p>Friendly timezone API.</p>
+		</div>
+	</section>
+	<hr>
+	<section class="page">
+		<h2>Unfinished</h2>
+		<div>
+			<h3><a href="https://github.com/zgoat/zhttp">zhttp</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zhttp'>godoc</a></code>
+			<p>HTTP toolkit</p>
+		</div>
+		<div>
+			<h3><a href="https://github.com/zgoat/zlog">zlog</a></h3>
+			<code><a href='https://pkg.go.dev/zgo.at/zlog'>godoc</a></code>
+			<p>Logging library.</p>
+		</div>
+	</section>
+	<br>
+	<script data-goatcounter="https://zgoat.goatcounter.com/count"
+			async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

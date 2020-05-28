@@ -2,11 +2,9 @@
 
 set -euC
 
-index=""
-for root in zlog zhttp goatcounter goatletter zpack zdb utils ztest zvalidate zsrv zstripe httpbuf json tz isbot guru gadget errors blackmail; do
+for root in zlog zhttp goatcounter goatletter zpack zdb zstd ztest zvalidate zsrv zstripe httpbuf tz isbot guru gadget errors blackmail; do
 	for p in $(cd "$HOME/code/$root" && go list ./...); do
 		p=${p##zgo.at/}
-		index="$index\n<li><a href='https://pkg.go.dev/zgo.at/$root'>zgo.at/$root</a></li>"
 		mkdir -p "$p"
 		cat <<EOF | tee "$p.html" "$p/index.html">/dev/null
 <!DOCTYPE html>
@@ -27,5 +25,3 @@ for root in zlog zhttp goatcounter goatletter zpack zdb utils ztest zvalidate zs
 EOF
 	done
 done
-
-echo "$index" | uniq
