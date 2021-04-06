@@ -2,7 +2,7 @@
 
 set -euC
 
-for root in zlog zhttp goatcounter goatletter zpack zdb zstd ztest zvalidate zsrv zstripe httpbuf tz isbot guru gadget errors blackmail zli json follow zcache zgeoip zcert zrun pg_info ps zprofile; do
+for root in zlog zhttp goatcounter zpack zdb zstd zvalidate zsrv zstripe httpbuf tz isbot guru gadget errors blackmail zli json follow zcache zgeoip zcert zrun pg_info ps zprof; do
 	for p in $(cd "$HOME/code/$root" && go list ./...); do
 		p=${p##zgo.at/}
 		mkdir -p "$p"
