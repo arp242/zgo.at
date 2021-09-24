@@ -1,24 +1,68 @@
-#!/bin/sh
+#!/bin/zsh
 
 set -euC
 
-for root in z18n zlog zhttp goatcounter zpack zdb zstd zvalidate zsrv zstripe httpbuf tz isbot guru gadget errors blackmail zli json follow zcache zgeoip zcert zrun pg_info ps zprof ztpl; do
-	for p in $(cd "$HOME/code/$root" && go list ./...); do
-		p=${p##zgo.at/}
-		mkdir -p "$p"
-		cat <<EOF | tee "$p.html" "$p/index.html">/dev/null
+# uni
+# <meta name="go-import" content="arp242.net/uni git https://github.com/arp242/uni.git">
+# <meta name="go-source" content="arp242.net/uni https://github.com/arp242/uni https://github.com/arp242/uni/tree/master/{/dir}/ https://github.com/arp242/uni/tree/master/{/dir}">
+# <meta http-equiv="refresh" content="0; url=https://github.com/arp242/uni">
+#
+# uni/v2
+# <meta name="go-import" content="arp242.net/uni/v2 git https://github.com/arp242/uni.git">
+# <meta name="go-source" content="arp242.net/uni/v2 https://github.com/arp242/uni https://github.com/arp242/uni/tree/master/{/dir}/ https://github.com/arp242/uni/tree/master/{/dir}">
+# <meta http-equiv="refresh" content="0; url=https://github.com/arp242/uni">
+
+pkgs=(
+	blackmail
+	errors
+	follow
+	gadget
+	goatcounter
+	goatcounter/v2
+	guru
+	isbot
+	json
+	ps
+	tz
+	z18n
+	zcache
+	zcert
+	zdb
+	zhttp
+	zli
+	zlog
+	zpack
+	zprof
+	zrun
+	zsrv
+	zstd
+	zstripe
+	ztpl
+	zvalidate
+)
+
+for name in $pkgs; do
+	dir="$HOME/code/${name%/v2}"
+	pkg="zgo.at/$name"
+	repo="https://github.com/zgoat/${name%/v2}"
+
+	for p in $(cd "$dir" && go list ./...); do
+		name=${p##zgo.at/}
+
+		mkdir -p "$name"
+		cat <<EOF | tee "$name.html" "$name/index.html">/dev/null
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="go-import" content="zgo.at/$root git https://github.com/zgoat/$root.git">
-	<meta name="go-source" content="zgo.at/$root https://github.com/zgoat/$root https://github.com/zgoat/$root/tree/master/{/dir}/ https://github.com/zgoat/$root/tree/master/{/dir}/{file}#L{line}">
-	<meta http-equiv="refresh" content="0; url=https://github.com/zgoat/$root">
+	<meta name="go-import" content="$pkg git $repo.git">
+	<meta name="go-source" content="$pkg $repo $repo/tree/master/{/dir}/ $repo/tree/master/{/dir}/{file}#L{line}">
+	<meta http-equiv="refresh" content="0; url=$repo">
 </head>
 <body>
 	<p>
-		This is the <code>zgo.at/$root</code> Go package.
-		Its homepage is at <a href="https://github.com/zgoat/$root">https://github.com/zgoat/$root</a>.
+		This is the <code>$pkg</code> Go package.
+		Its homepage is at <a href="$repo">$repo</a>.
 	</p>
 </body>
 </html>
