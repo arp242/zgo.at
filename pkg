@@ -29,9 +29,9 @@ typeset -A pkgs=(
 	#zhttp            ~/code/Golib
 	#zli              ~/code/Golib
 	#zlog             ~/code/Golib
-	#zstd             ~/code/Golib
 	#zvalidate        ~/code/Golib
 	
+	zstd             ~/code/Golib
 	acidtab          ~/code/Golib
 	termfo           ~/code/Golib
 	termtext         ~/code/Golib
@@ -63,13 +63,13 @@ for name in ${(k)pkgs}; do
 	#repo="https://github.com/zgoat/${name%/v2}"
 	#[[ ${pkg:h} = arp242.net ]] && repo="https://github.com/arp242/${name%/v2}"
 
-	printf "name: %-10s  pkg: %-24s  dir: %-40s  repo: %s\n" $name $pkg $dir $repo
+	printf "%-36s  │  %-26s  │  %s\n" "$(printf '%s (%s)' $pkg $name)" ${dir//$HOME\/code/\~c} $repo
 	#continue
 
 	for p in $(cd "$dir" && go list ./...); do
 		name=${p##zgo.at/}
 		name=${name##arp242.net/}
-		print "     $name"
+		#print "     $name"
 		#continue
 
 		mkdir -p "$name"
