@@ -32,6 +32,9 @@ typeset -A pkgs=(
 	#zstd             ~/code/Golib
 	#zstripe          ~/code/Golib
 	#zvalidate        ~/code/Golib
+	
+	acidtab          ~/code/Golib
+	termtext         ~/code/Golib
 	termfo           ~/code/Golib
 
 	# goatcounter      zgoat
