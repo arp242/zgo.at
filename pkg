@@ -16,7 +16,6 @@ set -euC
 # 2. And move zgoat GitHub organisation stuff to arp242.net
 typeset -A pkgs=(
 	#blackmail        ~/code/Golib
-	#errors           ~/code/Golib
 	#follow           ~/code/Golib
 	#gadget           ~/code/Golib
 	#guru             ~/code/Golib
@@ -31,10 +30,11 @@ typeset -A pkgs=(
 	#zlog             ~/code/Golib
 	#zvalidate        ~/code/Golib
 	
-	zstd             ~/code/Golib
 	acidtab          ~/code/Golib
+	errors           ~/code/Golib
 	termfo           ~/code/Golib
 	termtext         ~/code/Golib
+	zstd             ~/code/Golib
 	zstripe          ~/code/Golib
 
 	# goatcounter      zgoat
