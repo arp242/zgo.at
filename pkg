@@ -30,12 +30,12 @@ typeset -A pkgs=(
 	#zli              ~/code/Golib
 	#zlog             ~/code/Golib
 	#zstd             ~/code/Golib
-	#zstripe          ~/code/Golib
 	#zvalidate        ~/code/Golib
 	
 	acidtab          ~/code/Golib
-	termtext         ~/code/Golib
 	termfo           ~/code/Golib
+	termtext         ~/code/Golib
+	zstripe          ~/code/Golib
 
 	# goatcounter      zgoat
 	# goatcounter/v2   zgoat
