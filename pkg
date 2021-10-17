@@ -15,6 +15,33 @@ set -euC
 # 1. Move arp242.net go packages to zgo.at domain
 # 2. And move zgoat GitHub organisation stuff to arp242.net
 typeset -A pkgs=(
+	acidtab          ~/code/Golib
+	errors           ~/code/Golib
+	guru             ~/code/Golib
+	json             ~/code/Golib
+	ps               ~/code/Golib
+	sconfig          ~/code/Golib
+	termfo           ~/code/Golib
+	termtext         ~/code/Golib
+	tz               ~/code/Golib
+	zcache           ~/code/Golib
+	zprof            ~/code/Golib
+	zstd             ~/code/Golib
+	zstripe          ~/code/Golib
+	
+	zsrv             ~/code/Prog
+	zcert            ~/code/Prog
+
+	# alwayscache
+	# autofox
+	# border
+	# cantuse
+	# colorcount
+	# goimport
+	# goimport/goimport gosodoff har har/cmd/unhar hubhub info orgstat
+	# sconfig
+	# singlepage trackwall transip-dynamic uni uni/v2
+
 	#blackmail        ~/code/Golib
 	#follow           ~/code/Golib
 	#gadget           ~/code/Golib
@@ -26,25 +53,8 @@ typeset -A pkgs=(
 	#zlog             ~/code/Golib
 	#zvalidate        ~/code/Golib
 
-	zcache           ~/code/Golib
-	tz               ~/code/Golib
-	acidtab          ~/code/Golib
-	errors           ~/code/Golib
-	guru             ~/code/Golib
-	json             ~/code/Golib
-	ps               ~/code/Golib
-	termfo           ~/code/Golib
-	termtext         ~/code/Golib
-	zstd             ~/code/Golib
-	zstripe          ~/code/Golib
-	zprof            ~/code/Golib
-	
-	zsrv             ~/code/Prog
-	zcert            ~/code/Prog
-
-	# goatcounter      zgoat
-	# goatcounter/v2   zgoat
-	# zpack            zgoat
+	# goatcounter      ~/code
+	# goatcounter/v2   ~/code
 	# zrun             zgoat
 	# ztpl             zgoat
 )
