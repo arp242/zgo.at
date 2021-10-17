@@ -16,19 +16,29 @@ set -euC
 # 2. And move zgoat GitHub organisation stuff to arp242.net
 typeset -A pkgs=(
 	acidtab          ~/code/Golib
+	blackmail        ~/code/Golib
 	errors           ~/code/Golib
+	follow           ~/code/Golib
+	gadget           ~/code/Golib
 	guru             ~/code/Golib
+	isbot            ~/code/Golib
 	json             ~/code/Golib
 	ps               ~/code/Golib
 	sconfig          ~/code/Golib
 	termfo           ~/code/Golib
 	termtext         ~/code/Golib
 	tz               ~/code/Golib
+	z18n             ~/code/Golib
 	zcache           ~/code/Golib
+	zdb              ~/code/Golib
+	zhttp            ~/code/Golib
+	zli              ~/code/Golib
+	zlog             ~/code/Golib
 	zprof            ~/code/Golib
 	zstd             ~/code/Golib
 	zstripe          ~/code/Golib
-	
+	zvalidate        ~/code/Golib
+
 	zsrv             ~/code/Prog
 	zcert            ~/code/Prog
 
@@ -38,21 +48,14 @@ typeset -A pkgs=(
 	# cantuse
 	# colorcount
 	# goimport
-	# goimport/goimport gosodoff har har/cmd/unhar hubhub info orgstat
-	# sconfig
-	# singlepage trackwall transip-dynamic uni uni/v2
-
-	#blackmail        ~/code/Golib
-	#follow           ~/code/Golib
-	#gadget           ~/code/Golib
-	#isbot            ~/code/Golib
-	#z18n             ~/code/Golib
-	#zdb              ~/code/Golib
-	#zhttp            ~/code/Golib
-	#zli              ~/code/Golib
-	#zlog             ~/code/Golib
-	#zvalidate        ~/code/Golib
-
+	# goimport
+	# gosodoff
+	# har
+	# hubhub
+	# orgstat
+	# singlepage
+	# uni uni/v2
+	
 	# goatcounter      ~/code
 	# goatcounter/v2   ~/code
 	# zrun             zgoat
