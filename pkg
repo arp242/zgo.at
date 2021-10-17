@@ -21,6 +21,7 @@ typeset -A pkgs=(
 	follow           ~/code/Golib
 	gadget           ~/code/Golib
 	guru             ~/code/Golib
+	hubhub           ~/code/Golib
 	isbot            ~/code/Golib
 	json             ~/code/Golib
 	ps               ~/code/Golib
@@ -51,7 +52,6 @@ typeset -A pkgs=(
 	# goimport
 	# gosodoff
 	# har
-	# hubhub
 	# orgstat
 	# singlepage
 	# uni uni/v2
@@ -62,7 +62,7 @@ typeset -A pkgs=(
 	# ztpl             zgoat
 )
 
-for name in ${(k)pkgs}; do
+for name in ${(ok)pkgs}; do
 	dir=$pkgs[$name]/$name
 	pkg=$(cd $dir && go list)
 	repo=$(cd $dir && git remote get-url origin)
