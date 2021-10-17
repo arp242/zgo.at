@@ -2,18 +2,6 @@
 
 set -euC
 
-# uni
-# <meta name="go-import" content="arp242.net/uni git https://github.com/arp242/uni.git">
-# <meta name="go-source" content="arp242.net/uni https://github.com/arp242/uni https://github.com/arp242/uni/tree/master/{/dir}/ https://github.com/arp242/uni/tree/master/{/dir}">
-# <meta http-equiv="refresh" content="0; url=https://github.com/arp242/uni">
-#
-# uni/v2
-# <meta name="go-import" content="arp242.net/uni/v2 git https://github.com/arp242/uni.git">
-# <meta name="go-source" content="arp242.net/uni/v2 https://github.com/arp242/uni https://github.com/arp242/uni/tree/master/{/dir}/ https://github.com/arp242/uni/tree/master/{/dir}">
-# <meta http-equiv="refresh" content="0; url=https://github.com/arp242/uni">
-
-# 1. Move arp242.net go packages to zgo.at domain
-# 2. And move zgoat GitHub organisation stuff to arp242.net
 typeset -A pkgs=(
 	acidtab          ~/code/Golib
 	blackmail        ~/code/Golib
@@ -38,6 +26,7 @@ typeset -A pkgs=(
 	zprof            ~/code/Golib
 	zstd             ~/code/Golib
 	zstripe          ~/code/Golib
+	ztpl             ~/code/Golib
 	zvalidate        ~/code/Golib
 
 	zsrv             ~/code/Prog
@@ -49,21 +38,17 @@ typeset -A pkgs=(
 	# cantuse
 	# colorcount
 	# goimport
-	# goimport
 	# gosodoff
 	# har
 	# orgstat
 	# singlepage
 	# uni uni/v2
-	
-	# goatcounter      ~/code
-	# goatcounter/v2   ~/code
-	# zrun             zgoat
-	# ztpl             zgoat
+
+	goatcounter      ~/code
 )
 
 for name in ${(ok)pkgs}; do
-	dir=$pkgs[$name]/$name
+	dir=$pkgs[${name%/v2}]/${name%/v2}  # TODO: v3, v4, vn...
 	pkg=$(cd $dir && go list)
 	repo=$(cd $dir && git remote get-url origin)
 	repo="https://${${${repo##git@}%%.git}//://}"
@@ -74,35 +59,24 @@ for name in ${(ok)pkgs}; do
 		continue
 	fi
 
-	#repo="https://github.com/zgoat/${name%/v2}"
-	#[[ ${pkg:h} = arp242.net ]] && repo="https://github.com/arp242/${name%/v2}"
-
-	printf "%-36s  │  %-26s  │  %s\n" "$(printf '%s (%s)' $pkg $name)" ${dir//$HOME\/code/\~c} $repo
-	#continue
+	printf "%-38s  │  %-26s  │  %s\n" "$(printf '%s (%s)' $pkg $name)" ${dir//$HOME\/code/\~c} $repo
 
 	for p in $(cd "$dir" && go list ./...); do
 		name=${p##zgo.at/}
 		name=${name##arp242.net/}
-		#print "     $name"
-		#continue
+		#print "     write $name.html"
 
 		mkdir -p "$name"
-		cat <<EOF | tee "$name.html" "$name/index.html">/dev/null
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="go-import" content="$pkg git $repo.git">
-	<meta name="go-source" content="$pkg $repo $repo/tree/master/{/dir}/ $repo/tree/master/{/dir}/{file}#L{line}">
-	<meta http-equiv="refresh" content="0; url=$repo">
-</head>
-<body>
-	<p>
-		This is the <code>$pkg</code> Go package.
-		Its homepage is at <a href="$repo">$repo</a>.
-	</p>
-</body>
-</html>
-EOF
+		cat <<-EOF | tee "$name.html" "$name/index.html">/dev/null
+			<!DOCTYPE html>
+			<html><head>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+				<meta name="go-import" content="$pkg git $repo.git">
+				<meta name="go-source" content="$pkg $repo $repo/tree/master/{/dir}/ $repo/tree/master/{/dir}/{file}#L{line}">
+				<meta http-equiv="refresh" content="0; url=$repo">
+			</head><body><p>
+				This is the <code>$pkg</code> Go package. Its homepage is at <a href="$repo">$repo</a>.
+			</p></body></html>
+		EOF
 	done
 done
