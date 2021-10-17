@@ -12,42 +12,62 @@ set -euC
 # <meta name="go-source" content="arp242.net/uni/v2 https://github.com/arp242/uni https://github.com/arp242/uni/tree/master/{/dir}/ https://github.com/arp242/uni/tree/master/{/dir}">
 # <meta http-equiv="refresh" content="0; url=https://github.com/arp242/uni">
 
-pkgs=(
-	blackmail
-	errors
-	follow
-	gadget
-	goatcounter
-	goatcounter/v2
-	guru
-	isbot
-	json
-	ps
-	tz
-	z18n
-	zcache
-	zcert
-	zdb
-	zhttp
-	zli
-	zlog
-	zpack
-	zprof
-	zrun
-	zsrv
-	zstd
-	zstripe
-	ztpl
-	zvalidate
+# 1. Move arp242.net go packages to zgo.at domain
+# 2. And move zgoat GitHub organisation stuff to arp242.net
+typeset -A pkgs=(
+	#blackmail        ~/code/Golib
+	#errors           ~/code/Golib
+	#follow           ~/code/Golib
+	#gadget           ~/code/Golib
+	#guru             ~/code/Golib
+	#isbot            ~/code/Golib
+	#ps               ~/code/Golib
+	#tz               ~/code/Golib
+	#z18n             ~/code/Golib
+	#zcache           ~/code/Golib
+	#zdb              ~/code/Golib
+	#zhttp            ~/code/Golib
+	#zli              ~/code/Golib
+	#zlog             ~/code/Golib
+	#zstd             ~/code/Golib
+	#zstripe          ~/code/Golib
+	#zvalidate        ~/code/Golib
+	termfo           ~/code/Golib
+
+	# goatcounter      zgoat
+	# goatcounter/v2   zgoat
+	# json             zgoat
+	# zcert            zgoat
+	# zpack            zgoat
+	# zprof            zgoat
+	# zrun             zgoat
+	# zsrv             zgoat
+	# ztpl             zgoat
 )
 
-for name in $pkgs; do
-	dir="$HOME/code/${name%/v2}"
-	pkg="zgo.at/$name"
-	repo="https://github.com/zgoat/${name%/v2}"
+for name in ${(k)pkgs}; do
+	dir=$pkgs[$name]/$name
+	pkg=$(cd $dir && go list)
+	repo=$(cd $dir && git remote get-url origin)
+	repo="https://${${${repo##git@}%%.git}//://}"
+
+	org=${repo:h:t}
+	if [[ $org != arp242 && $org != zgoat ]]; then
+		print >&2 "unexpected organisation '$org' in '$repo'; skipping"
+		continue
+	fi
+
+	#repo="https://github.com/zgoat/${name%/v2}"
+	#[[ ${pkg:h} = arp242.net ]] && repo="https://github.com/arp242/${name%/v2}"
+
+	printf "name: %-10s  pkg: %-24s  dir: %-40s  repo: %s\n" $name $pkg $dir $repo
+	#continue
 
 	for p in $(cd "$dir" && go list ./...); do
 		name=${p##zgo.at/}
+		name=${name##arp242.net/}
+		print "     $name"
+		#continue
 
 		mkdir -p "$name"
 		cat <<EOF | tee "$name.html" "$name/index.html">/dev/null
