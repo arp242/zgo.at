@@ -18,33 +18,34 @@ typeset -A pkgs=(
 	#blackmail        ~/code/Golib
 	#follow           ~/code/Golib
 	#gadget           ~/code/Golib
-	#guru             ~/code/Golib
 	#isbot            ~/code/Golib
-	#ps               ~/code/Golib
-	#tz               ~/code/Golib
 	#z18n             ~/code/Golib
-	#zcache           ~/code/Golib
 	#zdb              ~/code/Golib
 	#zhttp            ~/code/Golib
 	#zli              ~/code/Golib
 	#zlog             ~/code/Golib
 	#zvalidate        ~/code/Golib
-	
+
+	zcache           ~/code/Golib
+	tz               ~/code/Golib
 	acidtab          ~/code/Golib
 	errors           ~/code/Golib
+	guru             ~/code/Golib
+	json             ~/code/Golib
+	ps               ~/code/Golib
 	termfo           ~/code/Golib
 	termtext         ~/code/Golib
 	zstd             ~/code/Golib
 	zstripe          ~/code/Golib
+	zprof            ~/code/Golib
+	
+	zsrv             ~/code/Prog
+	zcert            ~/code/Prog
 
 	# goatcounter      zgoat
 	# goatcounter/v2   zgoat
-	# json             zgoat
-	# zcert            zgoat
 	# zpack            zgoat
-	# zprof            zgoat
 	# zrun             zgoat
-	# zsrv             zgoat
 	# ztpl             zgoat
 )
 
