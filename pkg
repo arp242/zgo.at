@@ -29,19 +29,19 @@ typeset -A pkgs=(
 	ztpl             ~/code/Golib
 	zvalidate        ~/code/Golib
 
-	zsrv             ~/code/Prog
+	border           ~/code/Prog
+	colorcount       ~/code/Prog
+	gomodgraph       ~/code/Prog
+	har              ~/code/Prog
+	singlepage       ~/code/Prog
 	zcert            ~/code/Prog
+	zsrv             ~/code/Prog
 
-	# alwayscache
 	# autofox
-	# border
 	# cantuse
-	# colorcount
 	# goimport
 	# gosodoff
-	# har
 	# orgstat
-	# singlepage
 	# uni uni/v2
 
 	goatcounter      ~/code
