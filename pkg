@@ -2,58 +2,61 @@
 
 set -euC
 
-typeset -A pkgs=(
-	acidtab          ~/code/Golib
-	blackmail        ~/code/Golib
-	errors           ~/code/Golib
-	follow           ~/code/Golib
-	gadget           ~/code/Golib
-	guru             ~/code/Golib
-	hubhub           ~/code/Golib
-	isbot            ~/code/Golib
-	json             ~/code/Golib
-	ps               ~/code/Golib
-	sconfig          ~/code/Golib
-	termfo           ~/code/Golib
-	termtext         ~/code/Golib
-	tz               ~/code/Golib
-	z18n             ~/code/Golib
-	zcache           ~/code/Golib
-	zdb              ~/code/Golib
-	zhttp            ~/code/Golib
-	zli              ~/code/Golib
-	zlog             ~/code/Golib
-	zprof            ~/code/Golib
-	zstd             ~/code/Golib
-	zstripe          ~/code/Golib
-	ztpl             ~/code/Golib
-	zvalidate        ~/code/Golib
-
-	border           ~/code/Prog
-	colorcount       ~/code/Prog
-	gomodgraph       ~/code/Prog
-	har              ~/code/Prog
-	singlepage       ~/code/Prog
-	zcert            ~/code/Prog
-	zsrv             ~/code/Prog
-
-	# autofox
-	# cantuse
-	# goimport
-	# gosodoff
-	# orgstat
-	# uni uni/v2
-
-	goatcounter      ~/code
+typeset -A libs=(
+	acidtab    ~/code/Golib
+	blackmail  ~/code/Golib
+	errors     ~/code/Golib
+	follow     ~/code/Golib
+	gadget     ~/code/Golib
+	guru       ~/code/Golib
+	hubhub     ~/code/Golib
+	isbot      ~/code/Golib
+	json       ~/code/Golib
+	ps         ~/code/Golib
+	sconfig    ~/code/Golib
+	termfo     ~/code/Golib
+	termtext   ~/code/Golib
+	tz         ~/code/Golib
+	z18n       ~/code/Golib
+	zcache     ~/code/Golib
+	zdb        ~/code/Golib
+	zhttp      ~/code/Golib
+	zli        ~/code/Golib
+	zlog       ~/code/Golib
+	zprof      ~/code/Golib
+	zstd       ~/code/Golib
+	zstripe    ~/code/Golib
+	ztpl       ~/code/Golib
+	zvalidate  ~/code/Golib
 )
 
-for name in ${(ok)pkgs}; do
-	dir=$pkgs[${name%/v2}]/${name%/v2}  # TODO: v3, v4, vn...
-	pkg=$(cd $dir && go list)
-	repo=$(cd $dir && git remote get-url origin)
-	repo="https://${${${repo##git@}%%.git}//://}"
+typeset -A progs=(
+	border       ~/code/Prog
+	cantuse      ~/code/Prog
+	colorcount   ~/code/Prog
+	goatcounter  ~/code
+	goimport     ~/code/Prog
+	gomodgraph   ~/code/Prog
+	gosodoff     ~/code/Prog
+	har          ~/code/Prog
+	singlepage   ~/code/Prog
+	zcert        ~/code/Prog
+)
+#zsrv         ~/code/Prog
 
-	org=${repo:h:t}
+# autofox
+# orgstat
+# uni uni/v2
+
+mk() {
+	local name=${1}
+	local dir=$2
+
+	local pkg=$(cd $dir && go list)
+	local repo=$(cd $dir && git remote get-url origin)
+	local repo="https://${${${repo##git@}%%.git}//://}"
+
+	local org=${repo:h:t}
 	if [[ $org != arp242 && $org != zgoat ]]; then
 		print >&2 "unexpected organisation '$org' in '$repo'; skipping"
 		continue
@@ -79,4 +82,76 @@ for name in ${(ok)pkgs}; do
 			</p></body></html>
 		EOF
 	done
+}
+
+# TODO: v3, v4, ...
+for name in ${(ok)libs};  mk $name $libs[${name%/v2}]/${name%/v2}
+for name in ${(ok)progs}; mk $name $progs[${name%/v2}]/${name%/v2}
+
+awk '/^LIBS$/ { exit }; { print $0 }' index.tpl >| index2.html
+for name in ${(ok)libs}; do
+	dir=$libs[${name%/v2}]/${name%/v2}
+	pkg=$(cd $dir && go list)
+	repo=$(cd $dir && git remote get-url origin)
+	repo="https://${${${repo##git@}%%.git}//://}"
+
+	# if [[ ! -f .cache/repos.json ]]; then
+	# 	curl -sH 'Accept: application/vnd.github.v3+json' \
+	#       https://api.github.com/users/arp242/repos?per_page=100&page=$i
+	# 		>.cache/repos.json
+	# 	# repos.json jq -Mr '.[] | select(.name=="acidtab") | .description'
+	# fi
+	desc=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .description')
+	desc=${desc%.}.
+	desc=${desc//#Go (package|library)( to)?/}
+	desc=${desc//% (for|in) Go./.}
+	desc=${(U)desc[1]}${desc[2,-1]}
+
+	# desc=$(cd $dir && go doc | awk 'NR < 3 {next}; /(^$|func|const|var|type)/ {exit}; // {print $0}')
+	# desc=${desc#Package $name }
+
+	#local org=${repo:h:t}
+
+	cat >>index2.html <<-EOF
+		<div>
+			<h3><a href="$repo">$pkg</a></h3>
+			<code><a href='https://godocs.io/$pkg'>godoc</a></code>
+			<p>$desc</p>
+		</div>
+	EOF
 done
+awk '/^LIBS$/ { found=1; next }; { if (found) print $0 }' index.tpl >> index2.html
+
+awk '/^PROGS$/ { exit }; { print $0 }' index2.html >| index3.html
+for name in ${(ok)progs}; do
+	dir=$progs[${name%/v2}]/${name%/v2}
+	pkg=$(cd $dir && go list)
+	repo=$(cd $dir && git remote get-url origin)
+	repo="https://${${${repo##git@}%%.git}//://}"
+
+	# if [[ ! -f .cache/repos.json ]]; then
+	# 	curl -sH 'Accept: application/vnd.github.v3+json' \
+	#       https://api.github.com/users/arp242/repos?per_page=100&page=$i
+	# 		>.cache/repos.json
+	# 	# repos.json jq -Mr '.[] | select(.name=="acidtab") | .description'
+	# fi
+	desc=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .description')
+	desc=${desc%.}.
+	desc=${desc//#Go (package|library)( to)?/}
+	desc=${desc//% (for|in) Go./.}
+	desc=${(U)desc[1]}${desc[2,-1]}
+
+	# desc=$(cd $dir && go doc | awk 'NR < 3 {next}; /(^$|func|const|var|type)/ {exit}; // {print $0}')
+	# desc=${desc#Package $name }
+
+	#local org=${repo:h:t}
+
+	cat >>index3.html <<-EOF
+		<div>
+			<h3><a href="$repo">$name</a></h3>
+			<code><a href='https://godocs.io/$pkg'>godoc</a></code>
+			<p>$desc</p>
+		</div>
+	EOF
+done
+awk '/^PROGS$/ { found=1; next }; { if (found) print $0 }' index2.html >> index3.html
