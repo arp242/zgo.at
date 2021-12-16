@@ -41,6 +41,7 @@ typeset -A progs=(
 	har          ~/code/Prog
 	singlepage   ~/code/Prog
 	zcert        ~/code/Prog
+	db-bench     ~/code
 )
 #zsrv         ~/code/Prog
 
