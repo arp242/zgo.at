@@ -41,13 +41,13 @@ typeset -A progs=(
 	har          ~/code/Prog
 	singlepage   ~/code/Prog
 	sqlbench     ~/code/Prog
+	uni			 ~/code/Prog
 	zcert        ~/code/Prog
 )
 #zsrv         ~/code/Prog
 
 # autofox
 # orgstat
-# uni uni/v2
 
 mk() {
 	local name=${1}
