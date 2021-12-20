@@ -40,8 +40,8 @@ typeset -A progs=(
 	gosodoff     ~/code/Prog
 	har          ~/code/Prog
 	singlepage   ~/code/Prog
+	sqlbench     ~/code/Prog
 	zcert        ~/code/Prog
-	db-bench     ~/code
 )
 #zsrv         ~/code/Prog
 
