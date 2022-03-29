@@ -32,29 +32,15 @@
 	<h1>zGoat</h1>
 
 	<div class="page">
-		<p>zGoat is the organisation under which I develop GoatCounter and
-		various other related packages. Many of the projects listed here were
-		developed for use in GoatCounter.</p>
-
-		<p>Everything here is written in Go and is released under the MIT
-		license, with the exception of GoatCounter which is EUPL.</p>
+		<p>zgo.at contains my Go packages.</p>
 
 		<p class="intro-links">
-			<a href="https://github.com/zgoat">GitHub</a>
-			<a href="https://www.goatcounter.com/contribute">Support my work</a>
+			<a href="https://github.com/arp242">github.com/arp242</a>
 			<a href="https://www.arp242.net">arp242.net</a>
 		</p>
 	</div>
 	<hr>
-	<section class="page">
-		<h2>Applications</h2>
-PROGS
-	</section>
-	<hr>
-	<section class="page">
-		<h2>Libraries</h2>
-LIBS
-	</section>
+XXXXX
 	<script data-goatcounter="https://zgoat.goatcounter.com/count"
 			async src="//gc.zgo.at/count.js"></script>
 </body>
