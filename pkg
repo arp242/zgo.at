@@ -97,13 +97,14 @@ mk() {
 }
 
 index-progs() {
-	print '<section class="page">\n<h2>Applications</h2>'
+	typeset -A sorted
 	for name in ${(ok)progs}; do
 		local dir=$progs[${name%/v2}]/${name%/v2}
 		local pkg=$(cd $dir && go list)
 		local repo=$(cd $dir && git remote get-url origin)
 		repo="https://${${${repo##git@}%%.git}//://}"
 
+		local stars=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .stargazers_count')
 		local desc=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .description')
 		desc=${desc%.}.
 		desc=${desc//#Go (package|library)( to)?/}
@@ -113,42 +114,52 @@ index-progs() {
 
 		#local org=${repo:h:t}
 
-		<<-EOF
+		sorted[$stars$pkg]=$(<<-EOF
 			<div>
 				<h3><a href="$repo">$(rm-v $name)</a></h3>
 				<code><a href='https://godocs.io/$pkg'>godoc</a></code>
 				<p>$desc</p>
+				<span>☆ $stars</span>
 			</div>
 		EOF
+		)
 	done
+
+	print '<section class="page">\n<h2>Applications</h2>'
+	for k in ${(nOk)sorted}; print $sorted[$k]
 	print '</section>'
 }
 
 index-libs() {
-	print '<section class="page">\n<h2>Libraries</h2>'
+	typeset -A sorted
 	for name in ${(ok)libs}; do
 		local dir=$libs[${name%/v2}]/${name%/v2}
 		local pkg=$(cd $dir && go list)
 		local repo=$(cd $dir && git remote get-url origin)
 		repo="https://${${${repo##git@}%%.git}//://}"
 
+		local stars=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .stargazers_count')
 		local desc=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .description')
-		desc=${desc%.}.
+		desc=${${desc%.}% }.
 		desc=${desc//#Go (package|library)( to)?/}
 		desc=${desc//% (for|in) Go./.}
 		desc=${(U)desc[1]}${desc[2,-1]}
 		[[ $desc = "Null." ]] && desc=
-
 		#local org=${repo:h:t}
 
-		<<-EOF
+		sorted[$stars$pkg]=$(<<-EOF
 			<div>
 				<h3><a href="$repo">$(rm-v $pkg)</a></h3>
 				<code><a href='https://godocs.io/$pkg'>godoc</a></code>
 				<p>$desc</p>
+				<span>☆ $stars</span>
 			</div>
 		EOF
+		)
 	done
+
+	print '<section class="page">\n<h2>Libraries</h2>'
+	for k in ${(nOk)sorted}; print $sorted[$k]
 	print '</section>'
 }
 

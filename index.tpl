@@ -18,8 +18,10 @@
 		/* Section layout */
 		section      { display: flex; flex-wrap: wrap; justify-content: space-around; }
 		section h2   { width: 100%; }
-		section div  { display: flex; flex-wrap: wrap; align-content: flex-start; width: 18.5rem; min-height: 2rem;
-                       margin-bottom: 1em; padding: .4em .8em; border: 1px solid #d1d5da; border-radius: 3px; }
+		section div  { position: relative; display: flex; flex-wrap: wrap; align-content: flex-start;
+		               width: 18.5rem; min-height: 2rem; margin-bottom: 1em; padding: .4em .8em;
+		               border: 1px solid #d1d5da; border-radius: 3px; }
+		section span { position: absolute; right: 4px; bottom: 0; }
 		@media (max-width: 60em) { section div { width: 45%;  } }
 		@media (max-width: 40em) { section div { width: 100%; } }
 
