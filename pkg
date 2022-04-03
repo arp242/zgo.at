@@ -56,6 +56,9 @@ if [[ ! -f .cache/repos.json ]]; then
 	done
 fi
 
+IFS=$'\n' typeset -A stars=($(< .cache/repos.json jq -Mr '.[] | .name, .stargazers_count'))
+IFS=$'\n' typeset -A descs=($(< .cache/repos.json jq -Mr '.[] | .name, .description'))
+
 rm-v() {
 	print ${1%/v?}
 }
@@ -99,30 +102,8 @@ mk() {
 index-progs() {
 	typeset -A sorted
 	for name in ${(ok)progs}; do
-		local dir=$progs[${name%/v2}]/${name%/v2}
-		local pkg=$(cd $dir && go list)
-		local repo=$(cd $dir && git remote get-url origin)
-		repo="https://${${${repo##git@}%%.git}//://}"
-
-		local stars=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .stargazers_count')
-		local desc=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .description')
-		desc=${desc%.}.
-		desc=${desc//#Go (package|library)( to)?/}
-		desc=${desc//% (for|in) Go./.}
-		desc=${(U)desc[1]}${desc[2,-1]}
-		[[ $desc = "Null." ]] && desc=
-
-		#local org=${repo:h:t}
-
-		sorted[$stars$pkg]=$(<<-EOF
-			<div>
-				<h3><a href="$repo">$(rm-v $name)</a></h3>
-				<code><a href='https://godocs.io/$pkg'>godoc</a></code>
-				<p>$desc</p>
-				<span>☆ $stars</span>
-			</div>
-		EOF
-		)
+		local s=$stars[$name]
+		sorted[$s$name]=$(mk-card $name 0)
 	done
 
 	print '<section class="page">\n<h2>Applications</h2>'
@@ -133,34 +114,55 @@ index-progs() {
 index-libs() {
 	typeset -A sorted
 	for name in ${(ok)libs}; do
-		local dir=$libs[${name%/v2}]/${name%/v2}
-		local pkg=$(cd $dir && go list)
-		local repo=$(cd $dir && git remote get-url origin)
-		repo="https://${${${repo##git@}%%.git}//://}"
-
-		local stars=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .stargazers_count')
-		local desc=$(<.cache/repos.json jq -Mr '.[] | select(.name=="'$name'") | .description')
-		desc=${${desc%.}% }.
-		desc=${desc//#Go (package|library)( to)?/}
-		desc=${desc//% (for|in) Go./.}
-		desc=${(U)desc[1]}${desc[2,-1]}
-		[[ $desc = "Null." ]] && desc=
-		#local org=${repo:h:t}
-
-		sorted[$stars$pkg]=$(<<-EOF
-			<div>
-				<h3><a href="$repo">$(rm-v $pkg)</a></h3>
-				<code><a href='https://godocs.io/$pkg'>godoc</a></code>
-				<p>$desc</p>
-				<span>☆ $stars</span>
-			</div>
-		EOF
-		)
+		local s=$stars[$name]
+		sorted[$s$name]=$(mk-card $name 1)
 	done
 
 	print '<section class="page">\n<h2>Libraries</h2>'
 	for k in ${(nOk)sorted}; print $sorted[$k]
 	print '</section>'
+}
+
+mk-card() {
+	local name=$1
+	local is_lib=$2
+	if (( $is_lib )); then
+		local dir=$libs[${name%/v2}]/${name%/v2}
+	else
+		local dir=$progs[${name%/v2}]/${name%/v2}
+	fi
+	local pkg=$(cd $dir && go list)
+	local repo=$(cd $dir && git remote get-url origin)
+	repo="https://${${${repo##git@}%%.git}//://}"
+
+	local star=$stars[$name]
+	local desc=$descs[$name]
+
+	desc=${${desc%.}% }.  # libs
+	desc=${desc//#Go (package|library)( to)?/}
+	desc=${desc//% (for|in) Go./.}
+	desc=${(U)desc[1]}${desc[2,-1]}
+	[[ $desc = "Null." ]] && desc=
+
+	local version=$(cd $dir && go list -m -versions -json | jq -rM '.Versions | .[-1]')
+	[[ $version = 'null' ]] && version=
+	
+	# Version can be retracted; just ignore it.
+	cd $dir
+	git show $version >/dev/null 2>&1 || version=
+	cd -
+	#local date=$(cd $dir && git log -n1 --date=format:'%b %Y' --format=%cd $version)
+
+	local header=$name
+	(( $is_lib )) && header=$pkg
+	<<-EOF
+		<div>
+			<h3><a href="$repo">$(rm-v $header)</a></h3>
+			<code><a href="https://godocs.io/$pkg">godoc</a></code>
+			<p>$desc</p>
+			<span>$version $([[ -n $version ]] && print '│') ★ $star</span>
+		</div>
+	EOF
 }
 
 index() {
@@ -171,6 +173,6 @@ index() {
 }
 
 # TODO: v3, v4, ...
-for name in ${(ok)libs};  mk $name $libs[${name%/v2}]/${name%/v2}
 for name in ${(ok)progs}; mk $name $progs[${name%/v2}]/${name%/v2}
+for name in ${(ok)libs};  mk $name $libs[${name%/v2}]/${name%/v2}
 index >| index.html

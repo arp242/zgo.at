@@ -20,8 +20,10 @@
 		section h2   { width: 100%; }
 		section div  { position: relative; display: flex; flex-wrap: wrap; align-content: flex-start;
 		               width: 18.5rem; min-height: 2rem; margin-bottom: 1em; padding: .4em .8em;
-		               border: 1px solid #d1d5da; border-radius: 3px; }
-		section span { position: absolute; right: 4px; bottom: 0; }
+		               border: 1px solid #d1d5da; border-radius: 3px;
+		               padding-bottom: 2em; }
+		section span { position: absolute; bottom: 0; width: 100%; padding: 0 .8em;
+		               margin-left: -.8em; margin-right: 0; text-align: right; background-color: #eee; }
 		@media (max-width: 60em) { section div { width: 45%;  } }
 		@media (max-width: 40em) { section div { width: 100%; } }
 
@@ -34,7 +36,7 @@
 	<h1>zGoat</h1>
 
 	<div class="page">
-		<p>zgo.at contains my Go packages.</p>
+		<p style="text-align: center">zgo.at contains my Go packages.</p>
 
 		<p class="intro-links">
 			<a href="https://github.com/arp242">github.com/arp242</a>
