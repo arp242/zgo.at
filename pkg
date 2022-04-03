@@ -175,4 +175,4 @@ index() {
 # TODO: v3, v4, ...
 for name in ${(ok)progs}; mk $name $progs[${name%/v2}]/${name%/v2}
 for name in ${(ok)libs};  mk $name $libs[${name%/v2}]/${name%/v2}
-index >| index.html
+index | singlepage -m '' -l css,image,font >| index.html
