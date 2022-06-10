@@ -106,7 +106,7 @@ index-progs() {
 		sorted[$s$name]=$(mk-card $name 0)
 	done
 
-	print '<section class="page">\n<h2>Applications</h2>'
+	print '<section class="page">\n<h2 id="applications">Applications</h2>'
 	for k in ${(nOk)sorted}; print $sorted[$k]
 	print '</section>'
 }
@@ -118,7 +118,7 @@ index-libs() {
 		sorted[$s$name]=$(mk-card $name 1)
 	done
 
-	print '<section class="page">\n<h2>Libraries</h2>'
+	print '<section class="page">\n<h2 id="libraries">Libraries</h2>'
 	for k in ${(nOk)sorted}; print $sorted[$k]
 	print '</section>'
 }
