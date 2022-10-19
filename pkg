@@ -39,6 +39,7 @@ typeset -A progs=(
 	gomodgraph   ~/code/Prog
 	gosodoff     ~/code/Prog
 	har          ~/code/Prog
+	kommentaar   ~/code/Prog
 	singlepage   ~/code/Prog
 	sqlbench     ~/code/Prog
 	uni			 ~/code/Prog
