@@ -3,6 +3,11 @@
 set -euC
 
 typeset -A libs=(
+	go-sqlite3  ~/code/Golib/zdb-drivers
+	pq          ~/code/Golib/zdb-drivers
+	pgx         ~/code/Golib/zdb-drivers
+	mysql       ~/code/Golib/zdb-drivers
+
 	acidtab    ~/code/Golib
 	blackmail  ~/code/Golib
 	errors     ~/code/Golib
@@ -115,6 +120,7 @@ index-progs() {
 index-libs() {
 	typeset -A sorted
 	for name in ${(ok)libs}; do
+		[[ $libs[$name] = ~/code/Golib/zdb-drivers ]] && continue
 		local s=$stars[$name]
 		sorted[$s$name]=$(mk-card $name 1)
 	done
