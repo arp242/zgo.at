@@ -39,7 +39,9 @@ typeset -A progs=(
 	border       ~/code/Prog
 	cantuse      ~/code/Prog
 	colorcount   ~/code/Prog
-	goatcounter  ~/code
+	git-stats    ~/code/Prog
+	#bahamut      ~/code/Prog
+	goatcounter  ~/code/Prog
 	goimport     ~/code/Prog
 	gomodgraph   ~/code/Prog
 	gosodoff     ~/code/Prog
@@ -55,15 +57,19 @@ typeset -A progs=(
 # orgstat
 
 if [[ ! -f .cache/repos.json ]]; then
-	for i in {1..3}; do
-		curl -sH 'Accept: application/vnd.github.v3+json' \
-			"https://api.github.com/users/arp242/repos?per_page=100&page=$i" \
-			>>|.cache/repos.json
+	: >|repos.json
+	for i in {1..10}; do
+		local data=$(curl -sH 'Accept: application/vnd.github.v3+json' \
+			"https://api.github.com/users/arp242/repos?per_page=100&page=$i")
+
+		jq '.[]' <<<$data >>|.cache/repos.json
+
+		(( $(jq '. | length' <<<$data) < 100 )) && break
 	done
 fi
 
-IFS=$'\n' typeset -A stars=($(< .cache/repos.json jq -Mr '.[] | .name, .stargazers_count'))
-IFS=$'\n' typeset -A descs=($(< .cache/repos.json jq -Mr '.[] | .name, .description'))
+IFS=$'\n' typeset -A stars=($(< .cache/repos.json jq -Mr '.name, .stargazers_count'))
+IFS=$'\n' typeset -A descs=($(< .cache/repos.json jq -Mr '.name, .description'))
 
 rm-v() {
 	print ${1%/v?}
