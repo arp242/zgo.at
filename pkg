@@ -19,6 +19,7 @@ typeset -A libs=(
 	json       ~/code/Golib
 	ps         ~/code/Golib
 	sconfig    ~/code/Golib
+	slog_align ~/code/Golib
 	termfo     ~/code/Golib
 	termtext   ~/code/Golib
 	tz         ~/code/Golib
