@@ -37,11 +37,11 @@ typeset -A libs=(
 )
 
 typeset -A progs=(
+	#bahamut      ~/code/Prog
 	border       ~/code/Prog
 	cantuse      ~/code/Prog
 	colorcount   ~/code/Prog
 	git-stats    ~/code/Prog
-	#bahamut      ~/code/Prog
 	goatcounter  ~/code/Prog
 	goimport     ~/code/Prog
 	gomodgraph   ~/code/Prog
@@ -50,7 +50,8 @@ typeset -A progs=(
 	kommentaar   ~/code/Prog
 	singlepage   ~/code/Prog
 	sqlbench     ~/code/Prog
-	uni			 ~/code/Prog
+	uni          ~/code/Prog
+	wtff         ~/code/Prog
 	zcert        ~/code/Prog
 )
 #zsrv         ~/code/Prog
