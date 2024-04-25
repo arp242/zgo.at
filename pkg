@@ -47,6 +47,7 @@ typeset -A progs=(
 	gomodgraph   ~/code/Prog
 	gosodoff     ~/code/Prog
 	har          ~/code/Prog
+	jfmt         ~/code/Prog
 	kommentaar   ~/code/Prog
 	singlepage   ~/code/Prog
 	sqlbench     ~/code/Prog
@@ -116,7 +117,7 @@ mk() {
 index-progs() {
 	typeset -A sorted
 	for name in ${(ok)progs}; do
-		local s=$stars[$name]
+		local s=${stars[$name]:-0}
 		sorted[$s$name]=$(mk-card $name 0)
 	done
 
@@ -129,7 +130,7 @@ index-libs() {
 	typeset -A sorted
 	for name in ${(ok)libs}; do
 		[[ $libs[$name] = ~/code/Golib/zdb-drivers ]] && continue
-		local s=$stars[$name]
+		local s=${stars[$name]:-0}
 		sorted[$s$name]=$(mk-card $name 1)
 	done
 
@@ -150,8 +151,8 @@ mk-card() {
 	local repo=$(cd $dir && git remote get-url origin)
 	repo="https://${${${repo##git@}%%.git}//://}"
 
-	local star=$stars[$name]
-	local desc=$descs[$name]
+	local star=${stars[$name]:-}
+	local desc=${descs[$name]:-}
 
 	desc=${${desc%.}% }.  # libs
 	desc=${desc//#Go (package|library)( to)?/}
