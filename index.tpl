@@ -19,9 +19,8 @@
 		section      { display: flex; flex-wrap: wrap; justify-content: space-around; }
 		section h2   { width: 100%; }
 		section div  { position: relative; display: flex; flex-wrap: wrap; align-content: flex-start;
-		               width: 18.5rem; min-height: 2rem; margin-bottom: 1em; padding: .4em .8em;
-		               border: 1px solid #d1d5da; border-radius: 3px;
-		               padding-bottom: 2em; }
+		               width: 18.5rem; min-height: 2rem; margin-bottom: 1em; padding: .4em .4em 2em .8em;
+		               border: 1px solid #d1d5da; border-radius: 3px; }
 		section span { position: absolute; bottom: 0; width: 100%; padding: 0 .8em;
 		               margin-left: -.8em; margin-right: 0; text-align: right; background-color: #eee; }
 		@media (max-width: 60em) { section div { width: 45%;  } }

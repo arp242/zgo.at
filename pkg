@@ -16,6 +16,7 @@ typeset -A libs=(
 	guru       ~/code/Golib
 	hubhub     ~/code/Golib
 	isbot      ~/code/Golib
+	jfmt       ~/code/Prog
 	json       ~/code/Golib
 	ps         ~/code/Golib
 	sconfig    ~/code/Golib
@@ -47,7 +48,7 @@ typeset -A progs=(
 	gomodgraph   ~/code/Prog
 	gosodoff     ~/code/Prog
 	har          ~/code/Prog
-	jfmt         ~/code/Prog
+	jfmt         ~/code/Prog/jfmt/cmd
 	kommentaar   ~/code/Prog
 	singlepage   ~/code/Prog
 	sqlbench     ~/code/Prog
