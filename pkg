@@ -22,6 +22,7 @@ typeset -A libs=(
 	sconfig    ~/code/Golib
 	slog_align ~/code/Golib
 	termfo     ~/code/Golib
+	term       ~/code/Golib
 	termtext   ~/code/Golib
 	tz         ~/code/Golib
 	z18n       ~/code/Golib
