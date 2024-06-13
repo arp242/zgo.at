@@ -44,6 +44,7 @@ typeset -A progs=(
 	border       ~/code/Prog
 	cantuse      ~/code/Prog
 	colorcount   ~/code/Prog
+	elles        ~/code/Prog
 	git-stats    ~/code/Prog
 	goatcounter  ~/code/Prog
 	goimport     ~/code/Prog
