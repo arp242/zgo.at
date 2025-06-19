@@ -18,6 +18,7 @@ typeset -A libs=(
 	isbot      ~/code/Golib
 	jfmt       ~/code/Prog
 	json       ~/code/Golib
+	otp        ~/code/Golib
 	ps         ~/code/Golib
 	runewidth  ~/code/Golib
 	sconfig    ~/code/Golib
