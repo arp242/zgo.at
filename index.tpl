@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>zGoat</title>
 	<link rel="stylesheet" href="base.css">
+	<link rel="icon" type="image/jpeg" href="favicon.jpg">
 
 	<style>
 		/* Override some hello css */
