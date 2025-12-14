@@ -106,13 +106,16 @@ mk() {
 		name=${name##arp242.net/}
 		#print "     write $name.html"
 
+		subdir=""
+		[[ $dir =~ zdb-drivers ]] && subdir=" $(basename $dir)"
+
 		mkdir -p "$name"
 		cat <<-EOF | tee "$name.html" "$name/index.html">/dev/null
 			<!DOCTYPE html>
 			<html><head>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-				<meta name="go-import" content="$pkg git $repo.git">
-				<meta name="go-source" content="$pkg $repo $repo/tree/master/{/dir}/ $repo/tree/master/{/dir}/{file}#L{line}">
+				<meta name="go-import" content="$pkg git $repo.git$subdir">
+				<meta name="go-source" content="$pkg $repo $repo/tree/main/{/dir}/ $repo/tree/main/{/dir}/{file}#L{line}">
 				<meta http-equiv="refresh" content="0; url=$repo">
 			</head><body><p>
 				This is the <code>$pkg</code> Go package. Its homepage is at <a href="$repo">$repo</a>.
