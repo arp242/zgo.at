@@ -6,7 +6,7 @@ typeset -A libs=(
 	go-sqlite3  ~/code/Golib/zdb-drivers
 	pq          ~/code/Golib/zdb-drivers
 	pgx         ~/code/Golib/zdb-drivers
-	mysql       ~/code/Golib/zdb-drivers
+	mariadb     ~/code/Golib/zdb-drivers
 
 	acidtab    ~/code/Golib
 	blackmail  ~/code/Golib
@@ -66,7 +66,8 @@ typeset -A progs=(
 # orgstat
 
 if [[ ! -f .cache/repos.json ]]; then
-	: >|repos.json
+	mkdir -p .cache
+	: >|.cache/repos.json
 	for i in {1..10}; do
 		local data=$(curl -sH 'Accept: application/vnd.github.v3+json' \
 			"https://api.github.com/users/arp242/repos?per_page=100&page=$i")
