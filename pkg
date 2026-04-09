@@ -102,7 +102,7 @@ mk() {
 
 	printf "%-38s  │  %-26s  │  %s\n" "$(printf '%s (%s)' $pkg $name)" ${dir//$HOME\/code/\~c} $repo
 
-	for p in $(cd "$dir" && go list ./...); do
+	for p in $(cd "$dir" && go list ./... | grep -v /internal); do
 		name=${p##zgo.at/}
 		name=${name##arp242.net/}
 		#print "     write $name.html"
