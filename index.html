@@ -285,13 +285,13 @@ hr:before {
 <h3><a href="https://github.com/arp242/goatcounter">goatcounter</a></h3>
 <code><a href="https://godocs.io/zgo.at/goatcounter/v2">godoc</a></code>
 <p>Easy web analytics. No tracking of personal data.</p>
-<span>v2.6.0 │ ★ 5317</span>
+<span>v2.7.0 │ ★ 5549</span>
 </div>
 <div>
 <h3><a href="https://github.com/arp242/uni">uni</a></h3>
 <code><a href="https://godocs.io/zgo.at/uni/v2">godoc</a></code>
 <p>Query the Unicode database from the commandline, with good support for emojis.</p>
-<span>v2.8.0 │ ★ 839</span>
+<span>v2.9.0 │ ★ 854</span>
 </div>
 <div>
 <h3><a href="https://github.com/arp242/elles">elles</a></h3>
@@ -303,7 +303,7 @@ hr:before {
 <h3><a href="https://github.com/arp242/singlepage">singlepage</a></h3>
 <code><a href="https://godocs.io/zgo.at/singlepage">godoc</a></code>
 <p>Bundle external assets in a HTML file to distribute a stand-alone HTML document.</p>
-<span>v1.1.0 │ ★ 41</span>
+<span>v1.1.0 │ ★ 43</span>
 </div>
 <div>
 <h3><a href="https://github.com/arp242/gomodgraph">gomodgraph</a></h3>
@@ -384,6 +384,12 @@ hr:before {
 <span>  ★ 1</span>
 </div>
 <div>
+<h3><a href="https://github.com/arp242/torrent">torrent</a></h3>
+<code><a href="https://godocs.io/zgo.at/torrent">godoc</a></code>
+<p>.</p>
+<span>  ★ 0</span>
+</div>
+<div>
 <h3><a href="https://github.com/arp242/kommentaar">kommentaar</a></h3>
 <code><a href="https://godocs.io/zgo.at/kommentaar">godoc</a></code>
 <p>Generate documentation for Go APIs.</p>
@@ -408,7 +414,7 @@ hr:before {
 <h3><a href="https://github.com/arp242/isbot">zgo.at/isbot</a></h3>
 <code><a href="https://godocs.io/zgo.at/isbot">godoc</a></code>
 <p>Detect HTTP bots.</p>
-<span>v1.0.0 │ ★ 28</span>
+<span>v1.0.0 │ ★ 30</span>
 </div>
 <div>
 <h3><a href="https://github.com/arp242/follow">zgo.at/follow</a></h3>
@@ -456,7 +462,7 @@ hr:before {
 <h3><a href="https://github.com/arp242/blackmail">zgo.at/blackmail</a></h3>
 <code><a href="https://godocs.io/zgo.at/blackmail">godoc</a></code>
 <p>Send emails with a friendly API.</p>
-<span>  ★ 9</span>
+<span>  ★ 10</span>
 </div>
 <div>
 <h3><a href="https://github.com/arp242/tz">zgo.at/tz</a></h3>
@@ -504,7 +510,7 @@ hr:before {
 <h3><a href="https://github.com/arp242/errors">zgo.at/errors</a></h3>
 <code><a href="https://godocs.io/zgo.at/errors">godoc</a></code>
 <p>Yet another errors package.</p>
-<span>v1.4.0 │ ★ 4</span>
+<span>v1.5.0 │ ★ 4</span>
 </div>
 <div>
 <h3><a href="https://github.com/arp242/termtext">zgo.at/termtext</a></h3>
@@ -613,6 +619,7 @@ hr:before {
 		if (is_empty(data.r)) data.r = document.referrer
 		if (is_empty(data.t)) data.t = document.title
 		if (is_empty(data.p)) data.p = get_path()
+		if (vars.no_session) data.ns = (typeof(vars.no_session) === 'function' ? vars.no_session(false) : vars.no_session)
 
 		if (rcb) data.r = rcb(data.r)
 		if (tcb) data.t = tcb(data.t)
@@ -719,7 +726,7 @@ hr:before {
 		if (!url)
 			return warn('not counting because path callback returned null')
 
-		if (!navigator.sendBeacon(url)) {
+		if (!navigator || !navigator.sendBeacon || !navigator.sendBeacon(url)) {
 			// This mostly fails due to being blocked by CSP; try again with an
 			// image-based fallback.
 			var img = document.createElement('img')
@@ -754,10 +761,11 @@ hr:before {
 		var send = function(elem) {
 			return function() {
 				goatcounter.count({
-					event:    true,
-					path:     (elem.dataset.goatcounterClick || elem.name || elem.id || ''),
-					title:    (elem.dataset.goatcounterTitle || elem.title || (elem.innerHTML || '').substr(0, 200) || ''),
-					referrer: (elem.dataset.goatcounterReferrer || elem.dataset.goatcounterReferral || ''),
+					event:      true,
+					path:       (elem.dataset.goatcounterClick || elem.name || elem.id || ''),
+					title:      (elem.dataset.goatcounterTitle || elem.title || (elem.innerHTML || '').substr(0, 200) || ''),
+					referrer:   (elem.dataset.goatcounterReferrer || elem.dataset.goatcounterReferral || ''),
+					no_session: ['1', 't', 'true'].indexOf((elem.dataset.goatcounterNoSession || '').toLowerCase()) !== -1,
 				})
 			}
 		}

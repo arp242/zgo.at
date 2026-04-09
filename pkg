@@ -57,6 +57,7 @@ typeset -A progs=(
 	singlepage   ~/code/Prog
 	sqlbench     ~/code/Prog
 	structalign  ~/code/Prog
+	torrent      ~/code/Prog
 	uni          ~/code/Prog
 	wtff         ~/code/Prog
 	zcert        ~/code/Prog
