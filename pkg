@@ -44,6 +44,7 @@ typeset -A progs=(
 	#bahamut      ~/code/Prog
 	border       ~/code/Prog
 	cantuse      ~/code/Prog
+	cmp-compress ~/code/Prog
 	colorcount   ~/code/Prog
 	elles        ~/code/Prog
 	git-stats    ~/code/Prog
