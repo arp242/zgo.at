@@ -50,6 +50,7 @@ typeset -A progs=(
 	goatcounter  ~/code/Prog
 	goimport     ~/code/Prog
 	gomodgraph   ~/code/Prog
+	gonetd       ~/code/Prog
 	gosodoff     ~/code/Prog
 	har          ~/code/Prog
 	jfmt         ~/code/Prog/jfmt/cmd
